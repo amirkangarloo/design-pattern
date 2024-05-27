@@ -22,7 +22,7 @@ export class Payment {
 
     private static instance: Payment;
     
-    private PaymentGateway = {
+    private PaymentGatewayDictionary = {
         [PaymentMethodEnum.JIBIT]: new JibitPaymentAdapter(),
         [PaymentMethodEnum.STRIPE]: new StripePaymentAdapter(),
     }
@@ -37,7 +37,7 @@ export class Payment {
 
     payInvoice(invoice: InvoiceEntity): { gatewayLink: string; } {
         const { paymentMethod } = invoice;
-        const paymentGateway = this.PaymentGateway[paymentMethod];
+        const paymentGateway = this.PaymentGatewayDictionary[paymentMethod];
         if (!paymentGateway) throw new Error('Payment method not valid');
         return paymentGateway.generateLinkForPayInvoice(invoice);
     }
