@@ -36,7 +36,7 @@ export class Payment {
     }
 
     payInvoice(invoice: InvoiceEntity): { gatewayLink: string; } {
-        const { paymentMethod, price } = invoice;
+        const { paymentMethod } = invoice;
         const paymentGateway = this.PaymentGateway[paymentMethod];
         if (!paymentGateway) throw new Error('Payment method not valid');
         return paymentGateway.generateLinkForPayInvoice(invoice);
